@@ -16,8 +16,12 @@ public class PersonService {
 	public void createPerson(Person person) {
 		pRepo.save(person);
 	}
-	
+
+	public Person findById(Long id) {
+		return pRepo.findById(id).orElse(null);
+	}
 	public List<Person> findAllPerson(){
+	
 		return pRepo.findAll();
 	}
 }

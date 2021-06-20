@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.license.model.License;
@@ -23,11 +24,23 @@ public class PersonController {
 	@Autowired
 	private LicenseService lService;
 	
-	@GetMapping("/licenese/new")
+	@GetMapping("/license/new")
 	public String license(@ModelAttribute(name="license") License license,Model viewModel) {
 		List<Person> person = pService.findAllPerson();
-		viewModel.addAttribute("personList",person);
+	
+			viewModel.addAttribute("personList",person);
+	
+	
+		
 		return "license/license-new.jsp";
+	}
+	
+	@GetMapping("/persons/{id}")
+	public String personPage(@PathVariable("id") Long id,Model viewModel) {
+		Person person = pService.findById(id);
+		viewModel.addAttribute("person",person);
+		return "person.jsp";
+		
 	}
 	
 	
@@ -42,9 +55,10 @@ public class PersonController {
 		return "redirect:/licenese/new";
 	}
 	
-	@PostMapping("/licenese/new")
+	@PostMapping("/license/new")
 	public String create(License license) {
 		lService.createLicense(license);
-		return "redirect:/licenese/new";	
+		Long pId = license.getPerson().getId();
+		return "redirect:/persons/"+pId;	
 	}
 }

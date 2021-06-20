@@ -26,10 +26,18 @@ public class Person {
 	private String first_name;
 	private String last_name;
 	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "dog")
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "person")
 	private License license;
 	@Column(updatable=false)
 	private Date created_at;
+	public License getLicense() {
+		return license;
+	}
+
+	public void setLicense(License license) {
+		this.license = license;
+	}
+
 	private Date updated_at;
 	
 	@PrePersist
