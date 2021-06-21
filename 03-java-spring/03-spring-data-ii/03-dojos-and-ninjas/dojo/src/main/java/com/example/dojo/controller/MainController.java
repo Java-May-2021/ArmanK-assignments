@@ -52,5 +52,5 @@ public class MainController {
 	private String createNinja(Ninja ninja) {
 		this.mSerivce.createNinja(ninja);
 		return "redirect:/ninjas/new";
-	}
+	}	
 }
